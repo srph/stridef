@@ -139,14 +139,14 @@ const IbcTools = () => {
 
   return (
     <div className="mx-auto w-[470px] py-[120px]">
-      <h2 className="text-2xl uppercase">IBC Tools</h2>
-      <div className="mb-1" />
+      <h2 className="text-2xl uppercase leading-none">IBC Tools</h2>
+      <div className="mb-2" />
       <p className="leading-normal text-stone-500">
         Get the IBC denom given port and source channel. This works by
         prepending <code>ibc/</code> to <code>sha256(port/channel/denom)</code>.
       </p>
 
-      <div className="mb-4" />
+      <div className="mb-9" />
 
       <form onSubmit={handleSubmit}>
         <motion.div

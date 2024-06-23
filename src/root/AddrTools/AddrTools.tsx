@@ -141,14 +141,17 @@ const AddrTools = () => {
 
   return (
     <div className="mx-auto w-[470px] py-[120px]">
-      <h2 className="text-2xl uppercase">Cosmos Address Conversion</h2>
-      <div className="mb-1" />
+      <h2 className="text-2xl uppercase leading-none">Address Conversion</h2>
+
+      <div className="mb-2" />
+
       <p className="leading-normal text-stone-500">
-        Mechanically convert a cosmos address to its counterpart on a different
-        chain, using a bech32 prefix.
+        Convert a cosmos address to its counterpart on a different chain, using
+        a bech32 prefix. This requires both chains to be fully cosmos-based with
+        the same bip44 values.
       </p>
 
-      <div className="mb-4" />
+      <div className="mb-9" />
 
       <form onSubmit={handleSubmit}>
         <motion.div
