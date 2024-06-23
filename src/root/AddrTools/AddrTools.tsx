@@ -1,3 +1,4 @@
+import { fromBech32, toBech32 } from "@cosmjs/encoding";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import Image from "next/image";
 import React, { useMemo, useRef, useState } from "react";
@@ -9,6 +10,11 @@ import {
   HiOutlineArrowRight,
 } from "react-icons/hi";
 import useMeasure from "react-use-measure";
+
+// Given an address, we can convert it to its provided bech32Prefix counterpart
+const convert = (address: string, bech32Prefix: string): string => {
+  return toBech32(bech32Prefix, fromBech32(address).data);
+};
 
 // @source https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
 const sha256 = async (value: string): Promise<string> => {
@@ -115,35 +121,37 @@ const mtn = {
   exit: { x: "-110%", opacity: 0 },
 };
 
-const IbcTools = () => {
-  const [port, setPort] = useState("transfer/channel-0");
-  const [denom, setMicroDenom] = useState("uatom");
-  const [sha, setSha] = useState("");
+const AddrTools = () => {
+  const [address, setAddress] = useState(
+    "cosmos1jl249rmkkdh783nazp48h5j0sjdrwk5yevrgln",
+  );
+  const [bech32Prefix, setBech32Prefix] = useState("stride");
+  const [output, setOutput] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hashed = await sha256(`${port}/${denom}`);
-    setSha(hashed.toUpperCase());
+    const hashed = await sha256(`${address}/${bech32Prefix}`);
+    setOutput(addr(address, bech32Prefix));
   };
 
   const handleReset = () => {
-    setSha("");
+    setOutput("");
   };
 
   // ibc/ + sha256(port/denom)
-  const result = `ibc/${sha}`;
+  const result = `ibc/${output}`;
 
-  const trimmed = `ibc/${ellipsis(sha, 35)}`;
+  const trimmed = `ibc/${ellipsis(output, 35)}`;
 
   const [ref, bounds] = useMeasure();
 
   return (
     <div className="mx-auto w-[470px] py-[120px]">
-      <h2 className="text-2xl uppercase">IBC Tools</h2>
+      <h2 className="text-2xl uppercase">Cosmos Address Conversion</h2>
       <div className="mb-1" />
       <p className="leading-normal text-stone-500">
-        Get the IBC denom given port and source channel. This works by
-        prepending <code>ibc/</code> to <code>sha256(port/channel/denom)</code>.
+        Mechanically convert a cosmos address to its counterpart on a different
+        chain, using a bech32 prefix.
       </p>
 
       <div className="mb-4" />
@@ -159,7 +167,7 @@ const IbcTools = () => {
               transition={{ duration: 0.5, type: "spring", bounce: 0 }}
             >
               <AnimatePresence mode="popLayout" initial={false}>
-                {sha ? (
+                {output ? (
                   <motion.div
                     key="success"
                     initial={mtn.initial}
@@ -187,15 +195,15 @@ const IbcTools = () => {
                     <div>
                       <div>
                         <label className="block text-stone-500">
-                          Source Port & Channel
+                          Origin Address
                         </label>
 
                         <div className="mb-1" />
 
                         <input
                           type="text"
-                          value={port}
-                          onChange={(e) => setPort(e.target.value)}
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
                           className="block w-full rounded-md bg-stone-700 px-3 py-4 text-stone-300 placeholder:text-stone-500"
                           placeholder="transfer/channel-0"
                         />
@@ -205,15 +213,15 @@ const IbcTools = () => {
 
                       <div>
                         <label className="block text-stone-500">
-                          Microdenom
+                          Destination Bech32 Prefix
                         </label>
 
                         <div className="mb-1" />
 
                         <input
                           type="text"
-                          value={denom}
-                          onChange={(e) => setMicroDenom(e.target.value)}
+                          value={bech32Prefix}
+                          onChange={(e) => setBech32Prefix(e.target.value)}
                           className="block w-full rounded-md bg-stone-700 px-3 py-4 text-stone-300 placeholder:text-stone-500"
                           placeholder="uatom"
                         />
@@ -228,7 +236,7 @@ const IbcTools = () => {
 
         <div className="mb-4" />
 
-        {sha ? (
+        {output ? (
           <button
             type="button"
             className="group inline-flex items-center gap-2 rounded-full py-3"
@@ -257,4 +265,4 @@ const IbcTools = () => {
   );
 };
 
-export { IbcTools };
+export { AddrTools };
