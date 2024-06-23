@@ -115,7 +115,7 @@ const mtn = {
   exit: { x: "-110%", opacity: 0 },
 };
 
-export default function Home() {
+const IbcTools = () => {
   const [port, setPort] = useState("transfer/channel-0");
   const [denom, setMicroDenom] = useState("uatom");
   const [sha, setSha] = useState("");
@@ -255,4 +255,4 @@ export default function Home() {
       </form>
     </div>
   );
-}
+};
