@@ -1,6 +1,8 @@
 # stridef
 
-UI for the few useful utilities we use regularly at Stride
+UI for the few useful utilities we use regularly at [Stride](https://github.com/Stride-Labs/stride).
+
+> ⚠️ This is not the official repository of Stride
 
 ## Setup
 
