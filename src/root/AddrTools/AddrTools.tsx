@@ -130,18 +130,12 @@ const AddrTools = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hashed = await sha256(`${address}/${bech32Prefix}`);
-    setOutput(addr(address, bech32Prefix));
+    setOutput(convert(address, bech32Prefix));
   };
 
   const handleReset = () => {
     setOutput("");
   };
-
-  // ibc/ + sha256(port/denom)
-  const result = `ibc/${output}`;
-
-  const trimmed = `ibc/${ellipsis(output, 35)}`;
 
   const [ref, bounds] = useMeasure();
 
@@ -176,13 +170,13 @@ const AddrTools = () => {
                   >
                     <div className="flex items-center justify-between gap-4">
                       <pre
-                        title={result}
+                        title={output}
                         className="text-ellipsis text-stone-400"
                       >
-                        {trimmed}
+                        {ellipsis(output, 40)}
                       </pre>
 
-                      <CopyButton value={result} />
+                      <CopyButton value={output} />
                     </div>
                   </motion.div>
                 ) : (
