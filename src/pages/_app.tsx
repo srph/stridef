@@ -2,11 +2,12 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { FaGithubAlt } from "react-icons/fa";
 
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { FaXTwitter } from "react-icons/fa6";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -70,6 +71,28 @@ export default function App({ Component, pageProps }: AppProps) {
                 );
               })}
             </div>
+          </div>
+        </div>
+
+        <div className="bottom fixed bottom-0 left-0 top-0 flex items-end p-2">
+          <div className="flex flex-col">
+            <a
+              href="https://twitter.com/_srph"
+              target="_blank"
+              title="Open Twitter (X) profile of Kier Borromeo"
+              className="inline-block scale-100 px-4 py-4 text-xl text-stone-500 transition-all duration-100 hover:scale-110"
+            >
+              <FaXTwitter />
+            </a>
+
+            <a
+              href="https://github.com/srph/stridef"
+              target="_blank"
+              title="Open GitHub repository of stridef"
+              className="inline-block scale-100 px-4 py-4 text-xl text-stone-500 transition-all duration-100 hover:scale-110"
+            >
+              <FaGithubAlt />
+            </a>
           </div>
         </div>
       </div>
