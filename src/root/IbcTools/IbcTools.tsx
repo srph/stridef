@@ -67,7 +67,7 @@ const animation = {
   transition: { duration: 0.1 },
 };
 
-const CopyButton = ({ value }) => {
+const CopyButton = ({ value, title }) => {
   const [isCopied, toggleIsCopied] = useEphemeralBooleanState(2000);
 
   const handleCopy = () => {
@@ -81,6 +81,7 @@ const CopyButton = ({ value }) => {
       type="button"
       className="px-2 py-2 text-xl text-stone-600 transition-all duration-100 ease-in-out active:scale-110"
       onClick={handleCopy}
+      title={title ?? "Copy to clipboard"}
     >
       <AnimatePresence mode="wait" initial={false}>
         {isCopied ? (
@@ -174,7 +175,10 @@ const IbcTools = () => {
                         {trimmed}
                       </pre>
 
-                      <CopyButton value={result} />
+                      <CopyButton
+                        value={result}
+                        title="Copy the converted address"
+                      />
                     </div>
                   </motion.div>
                 ) : (
