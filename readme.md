@@ -6,7 +6,7 @@ UI for the few useful utilities we use regularly at [Stride](https://github.com/
 
 ## Setup
 
-Requires `npm v18.17`
+Requires Node.js `v18.17`
 
 ## Installation
 
